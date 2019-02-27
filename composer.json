@@ -1,0 +1,22 @@
+{
+  "name": "drupal/union_connector",
+  "type": "drupal-module",
+  "description": "A simple integration module for the Union component system",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "homepage": "https://github.com/ilrWebServices/union_connector",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "https://github.com/ilrWebServices/union_connector/issues",
+    "source": "https://github.com/ilrWebServices/union_connector.git"
+  },
+  "repositories": [
+    {
+        "type": "vcs",
+        "url": "https://github.com/ilrWebServices/union"
+    }
+  ],
+  "require": {
+    "cornell/union": "dev-master"
+  }
+}

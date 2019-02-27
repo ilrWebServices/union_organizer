@@ -1,0 +1,5 @@
+name: 'Union Connector'
+type: module
+description: 'A simple integration module for the Union component system'
+core: 8.x
+package: 'Union'
