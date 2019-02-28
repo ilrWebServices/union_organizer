@@ -9,14 +9,5 @@
   "support": {
     "issues": "https://github.com/ilrWebServices/union_organizer/issues",
     "source": "https://github.com/ilrWebServices/union_organizer.git"
-  },
-  "repositories": [
-    {
-        "type": "vcs",
-        "url": "https://github.com/ilrWebServices/union"
-    }
-  ],
-  "require": {
-    "cornell/union": "dev-master"
   }
 }
