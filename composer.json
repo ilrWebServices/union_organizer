@@ -1,14 +1,14 @@
 {
-  "name": "drupal/union_connector",
+  "name": "drupal/union_organizer",
   "type": "drupal-module",
   "description": "A simple integration module for the Union component system",
   "keywords": ["Drupal"],
   "license": "GPL-2.0+",
-  "homepage": "https://github.com/ilrWebServices/union_connector",
+  "homepage": "https://github.com/ilrWebServices/union_organizer",
   "minimum-stability": "dev",
   "support": {
-    "issues": "https://github.com/ilrWebServices/union_connector/issues",
-    "source": "https://github.com/ilrWebServices/union_connector.git"
+    "issues": "https://github.com/ilrWebServices/union_organizer/issues",
+    "source": "https://github.com/ilrWebServices/union_organizer.git"
   },
   "repositories": [
     {
