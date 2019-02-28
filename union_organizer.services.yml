@@ -1,0 +1,6 @@
+services:
+  union_organizer.twig.loader:
+    class: Drupal\union_organizer\Template\Loader\UnionTwigLoader
+    arguments: ['@app.root']
+    tags:
+      - { name: twig.loader, priority: 200 }

@@ -1,0 +1,45 @@
+<?php
+
+/**
+ * @file
+ * Contains union_organizer.module.
+ */
+
+
+/**
+ * Implements hook_library_info_build().
+ *
+ * Add dynamic library definitions for Union components.
+ *
+ * @return array[]
+ *   An array of library definitions to register, keyed by library ID. The
+ *   library ID will be prefixed with the module name automatically.
+ *
+ * @see core.libraries.yml
+ * @see hook_library_info_alter()
+ */
+function union_organizer_library_info_build() {
+  $libraries = [];
+  $css_files = file_scan_directory('libraries/union/source/components', '/.*\.css$/', ['key' => 'filename']);
+  $js_files = file_scan_directory('libraries/union/source/components', '/.*\.js$/', ['key' => 'filename']);
+
+  foreach ($css_files as $file_info) {
+    $component_name = $file_info->name;
+    $libraries['union.' . $component_name]['css'] = [
+      'component' => [
+        \Drupal::request()->getBaseUrl() . '/' . $file_info->uri => [],
+      ]
+    ];
+  }
+
+  foreach ($js_files as $file_info) {
+    $component_name = $file_info->name;
+    $libraries['union.' . $component_name]['js'] = [
+      'component' => [
+        \Drupal::request()->getBaseUrl() . '/' . $file_info->uri => [],
+      ]
+    ];
+  }
+
+  return $libraries;
+}
