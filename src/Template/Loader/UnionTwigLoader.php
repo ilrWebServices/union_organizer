@@ -30,6 +30,16 @@ class UnionTwigLoader extends \Twig_Loader_Filesystem {
     // namespace in this Twig loader.
     parent::__construct();
 
-    $this->setPaths("libraries/union/source/components", "union");
+    $paths = [];
+
+    // Find all twig files.
+    $twig_files = file_scan_directory('libraries/union/source/components', '/.*\.twig$/', ['key' => 'filename']);
+
+    foreach ($twig_files as $component) {
+      // Add the component path (excluding the twig filename) to the path array.
+      $paths[] = substr($component->uri, 0, strlen($component->filename) * -1);
+    }
+
+    $this->setPaths($paths, "union");
   }
 }

@@ -63,7 +63,7 @@ Union component templates are available in the `@union` twig namespace. Union co
 
 ```
 {{ attach_library('union_organizer/union.[COMPONENT_NAME]') }}
-{% include "@union/[COMPONENT_NAME]/[COMPONENT_NAME].twig" with {
+{% include "@union/[COMPONENT_NAME].twig" with {
   var: 'value'
 } only %}
 ```
@@ -72,7 +72,7 @@ For example:
 
 ```
 {{ attach_library('union_organizer/union.button') }}
-{% include "@union/button/button.twig" with {
+{% include "@union/button.twig" with {
   text: content.field_cta.value
 } only %}
 ```
