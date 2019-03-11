@@ -35,11 +35,38 @@ function union_organizer_library_info_build() {
   foreach ($js_files as $file_info) {
     $component_name = $file_info->name;
     $libraries['union.' . $component_name]['js'] = [
-      'component' => [
-        \Drupal::request()->getBaseUrl() . '/' . $file_info->uri => [],
-      ]
+      \Drupal::request()->getBaseUrl() . '/' . $file_info->uri => []
     ];
   }
 
   return $libraries;
+}
+
+function union_organizer_theme_suggestions_alter(array &$suggestions, array $variables, $hook)
+{
+  $implemented_templates = [
+    // 'checkboxes',
+    // 'fieldset',
+    // 'form_element_label',
+    // 'form_element',
+    // 'form',
+    'input',
+    // 'select',
+    // 'textarea'
+  ];
+
+  if (in_array($hook, $implemented_templates)) {
+    $suggestions[] = $hook . '__union';
+  }
+}
+
+// /**
+//  * Implements hook_theme().
+//  */
+function union_organizer_theme() {
+  return [
+    'input__union' => [
+      'base hook' => 'input'
+    ],
+  ];
 }
