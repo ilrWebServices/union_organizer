@@ -5,6 +5,7 @@
  * Contains union_organizer.module.
  */
 
+use Drupal\Core\Serialization\Yaml;
 
 /**
  * Implements hook_library_info_build().
@@ -20,23 +21,44 @@
  */
 function union_organizer_library_info_build() {
   $libraries = [];
-  $css_files = file_scan_directory('libraries/union/source/components', '/.*\.css$/', ['key' => 'filename']);
-  $js_files = file_scan_directory('libraries/union/source/components', '/.*\.js$/', ['key' => 'filename']);
 
-  foreach ($css_files as $file_info) {
-    $component_name = $file_info->name;
-    $libraries['union.' . $component_name]['css'] = [
-      'component' => [
-        \Drupal::request()->getBaseUrl() . '/' . $file_info->uri => [],
-      ]
-    ];
-  }
+  $component_libraries = file_scan_directory('libraries/union/source/components', '/.*\.libraries.yml$/', ['key' => 'filename']);
 
-  foreach ($js_files as $file_info) {
-    $component_name = $file_info->name;
-    $libraries['union.' . $component_name]['js'] = [
-      \Drupal::request()->getBaseUrl() . '/' . $file_info->uri => [],
-    ];
+  // Normalize each Union component library into a usable Drupal library. This
+  // involves fixing the .css and .js paths and prefixing the dependencies.
+  foreach ($component_libraries as $component_library) {
+    $file_path = $component_library->uri;
+    $library = Yaml::decode(file_get_contents($file_path));
+
+    $component_name = basename($component_library->name, '.libraries');
+
+    if (isset($library['css'])) {
+      foreach ($library['css'] as $file_name => $options) {
+        unset($library['css'][$file_name]);
+
+        $library['css']['component'][
+          \Drupal::request()->getBaseUrl() . '/' . dirname($file_path) . '/' . $file_name
+        ] = $options;
+      }
+    }
+
+    if (isset($library['js'])) {
+      foreach ($library['js'] as $file_name => $options) {
+        unset($library['js'][$file_name]);
+
+        $library['js'][
+          \Drupal::request()->getBaseUrl() . '/' . dirname($file_path) . '/' . $file_name
+        ] = $options;
+      }
+    }
+
+    if (isset($library['dependencies'])) {
+      foreach ($library['dependencies'] as $key => $dep) {
+        $library['dependencies'][$key] = 'union_organizer/' . $dep;
+      }
+    }
+
+    $libraries[$component_name] = $library;
   }
 
   return $libraries;
