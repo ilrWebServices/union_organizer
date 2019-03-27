@@ -2,10 +2,10 @@
 
 /**
  * @file
- * Contains \Drupal\union_organizer\Template\Loader\UnionTwigLoader.
+ * Contains \Drupal\union_organizer\UnionTwigLoader.
  */
 
-namespace Drupal\union_organizer\Template\Loader;
+namespace Drupal\union_organizer;
 
 /**
  * Loads templates from the filesystem.
