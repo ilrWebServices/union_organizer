@@ -4,3 +4,7 @@ services:
     arguments: ['@app.root']
     tags:
       - { name: twig.loader, priority: 200 }
+  union_organizer.twig.extension:
+    class: Drupal\union_organizer\UnionTwigExtension
+    tags:
+      - { name: twig.extension }
