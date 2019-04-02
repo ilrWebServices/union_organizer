@@ -34,6 +34,7 @@ class UnionTwigLoader extends \Twig_Loader_Filesystem {
 
     // Find all twig files.
     $twig_files = file_scan_directory('libraries/union/source/components', '/.*\.twig$/', ['key' => 'filename']);
+    $twig_files += file_scan_directory('libraries/union/source/skins', '/.*\.twig$/', ['key' => 'filename']);
 
     foreach ($twig_files as $component) {
       // Add the component path (excluding the twig filename) to the path array.
