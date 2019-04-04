@@ -41,6 +41,6 @@ class UnionTwigLoader extends \Twig_Loader_Filesystem {
       $paths[] = substr($component->uri, 0, strlen($component->filename) * -1);
     }
 
-    $this->setPaths($paths, "union");
+    $this->setPaths(array_unique($paths), "union");
   }
 }
