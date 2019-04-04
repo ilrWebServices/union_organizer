@@ -23,6 +23,7 @@ function union_organizer_library_info_build() {
   $libraries = [];
 
   $component_libraries = file_scan_directory('libraries/union/source/components', '/.*\.libraries.yml$/', ['key' => 'filename']);
+  $component_libraries += file_scan_directory('libraries/union/source/skins', '/.*\.libraries.yml$/', ['key' => 'filename']);
 
   // Normalize each Union component library into a usable Drupal library. This
   // involves fixing the .css and .js paths and prefixing the dependencies.
