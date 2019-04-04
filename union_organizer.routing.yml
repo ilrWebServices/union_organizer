@@ -1,0 +1,7 @@
+union_organizer.styleguide:
+  path: '/union/styleguide'
+  defaults:
+    _controller: '\Drupal\union_organizer\Controller\StyleguideController::content'
+    _title: 'Simple Union Styleguide'
+  requirements:
+    _permission: 'access content'
