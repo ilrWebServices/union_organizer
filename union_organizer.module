@@ -66,6 +66,7 @@ function union_organizer_library_info_build() {
       }
     }
 
+    // @todo Consider adding a namespace for skins (e.g. `skin-ilr`).
     $libraries[$component_name] = $library;
   }
 
