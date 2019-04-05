@@ -79,7 +79,7 @@ function union_organizer_library_info_build() {
 function union_organizer_theme() {
   $theme = [];
   $theme['union_styleguide'] = [
-    'render element' => 'elements',
+    'variables' => ['components' => '#components'],
   ];
   $theme['union_component'] = [
     'variables' => ['component' => '#component'],

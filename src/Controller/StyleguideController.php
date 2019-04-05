@@ -11,13 +11,21 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class StyleguideController extends ControllerBase {
 
   /**
-   * Returns a render array for the styleguide page.
+   * Dynamically renders all demo components.
    *
    * @see templates/union-styleguide.html.twig
    */
   public function content() {
+    $demo_components = [];
+    $twig_files = file_scan_directory('libraries/union/source/', '/.*\.twig$/', ['key' => 'filename']);
+    foreach ($twig_files as $file_info) {
+      if (strpos($file_info->filename, '_') !== 0) {
+        $demo_components[$file_info->name] = $file_info->filename;
+      }
+    }
     $build = [
       '#theme' => 'union_styleguide',
+      '#components' => $demo_components,
       '#attached' => [
         'library' => [
           'union_organizer/union_organizer_styleguide',
