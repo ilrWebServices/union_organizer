@@ -81,5 +81,8 @@ function union_organizer_theme() {
   $theme['union_styleguide'] = [
     'render element' => 'elements',
   ];
+  $theme['union_component'] = [
+    'variables' => ['component' => '#component'],
+  ];
   return $theme;
 }

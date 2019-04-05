@@ -5,3 +5,9 @@ union_organizer.styleguide:
     _title: 'Simple Union Styleguide'
   requirements:
     _permission: 'access content'
+union_organizer.component:
+  path: '/union/styleguide/{component}'
+  defaults:
+    _controller: '\Drupal\union_organizer\Controller\StyleguideController::demo_component'
+  requirements:
+    _permission: 'access content'
