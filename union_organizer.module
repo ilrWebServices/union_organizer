@@ -44,8 +44,11 @@ function union_organizer_library_info_build() {
           $level = 'base';
         }
 
+        // Compliled CSS in in the `/dist/` directory.
+        $dirname = str_replace('/source/', '/dist/', dirname($file_path));
+
         $library['css'][$level][
-          \Drupal::request()->getBaseUrl() . '/' . dirname($file_path) . '/' . $file_name
+          \Drupal::request()->getBaseUrl() . '/' . $dirname . '/' . $file_name
         ] = $options;
       }
     }
