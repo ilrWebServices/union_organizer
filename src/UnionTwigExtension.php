@@ -22,9 +22,8 @@ class UnionTwigExtension extends \Twig_Extension {
    */
   public function getFunctions() {
     return [
-      new \Twig_SimpleFunction(
-        'union_attributes',
-        [$this, 'unionAttributes'])
+      new \Twig_SimpleFunction('union_attributes', [$this, 'unionAttributes']),
+      new \Twig_SimpleFunction('union_file', [$this, 'unionFile']),
     ];
   }
 
@@ -36,6 +35,21 @@ class UnionTwigExtension extends \Twig_Extension {
    */
   public function unionAttributes($attributes) {
     return is_array($attributes) ? new Attribute($attributes) : $attributes;
+  }
+
+  /**
+   * Return a full file path to a Union file.
+   *
+   * E.g. union_file('components/logo/union.svg').
+   *
+   * @todo
+   *   - Make the file path prefix configurable. How? Dunno!
+   *
+   * @param string $filepath
+   * @return string Full path
+   */
+  public function unionFile($filepath) {
+    return '/libraries/union/source/' . $filepath;
   }
 
 }
