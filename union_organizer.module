@@ -72,17 +72,3 @@ function union_organizer_library_info_build() {
 
   return $libraries;
 }
-
-/**
- * Implements hook_theme().
- */
-function union_organizer_theme() {
-  $theme = [];
-  $theme['union_styleguide'] = [
-    'variables' => ['components' => '#components'],
-  ];
-  $theme['union_component'] = [
-    'variables' => ['component' => '#component'],
-  ];
-  return $theme;
-}

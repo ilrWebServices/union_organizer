@@ -1,6 +1,0 @@
-{% for component, filepath in components %}
-  <details id="{{ component }}">
-    <summary>{{ component|replace('-', ' ')|capitalize }}</summary>
-    {% include '@union/' ~ filepath %}
-  </details>
-{% endfor %}

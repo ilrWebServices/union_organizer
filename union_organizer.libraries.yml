@@ -1,4 +1,0 @@
-union_organizer_styleguide:
-  version: 1.x
-  js:
-    js/union_organizer_styleguide.js: {}
