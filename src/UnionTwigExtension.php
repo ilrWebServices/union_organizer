@@ -24,6 +24,7 @@ class UnionTwigExtension extends \Twig_Extension {
     return [
       new \Twig_SimpleFunction('union_attributes', [$this, 'unionAttributes']),
       new \Twig_SimpleFunction('union_file', [$this, 'unionFile']),
+      new \Twig_SimpleFunction('union_digest', 'sha1'),
     ];
   }
 
