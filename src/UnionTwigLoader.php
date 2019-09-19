@@ -34,13 +34,13 @@ class UnionTwigLoader extends \Twig_Loader_Filesystem {
 
     // Find all twig files, including components and skins.
     // @todo Should skins templates be in the same namespace as components?
-    $twig_files = file_scan_directory('libraries/union/source/', '/.*\.twig$/', ['key' => 'filename']);
+    $twig_files = file_scan_directory('libraries/cornell_ilr--union/source/', '/.*\.twig$/', ['key' => 'filename']);
 
     foreach ($twig_files as $component) {
       // Add the component path (excluding the twig filename) to the path array.
       $paths[] = substr($component->uri, 0, strlen($component->filename) * -1);
     }
 
-    $this->setPaths(array_unique($paths), "union");
+    $this->setPaths(array_unique($paths), "cornell_ilr--union");
   }
 }

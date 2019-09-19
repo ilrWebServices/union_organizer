@@ -50,7 +50,7 @@ class UnionTwigExtension extends \Twig_Extension {
    * @return string Full path
    */
   public function unionFile($filepath) {
-    return '/libraries/union/source/' . $filepath;
+    return '/libraries/cornell_ilr--union/source/' . $filepath;
   }
 
 }
