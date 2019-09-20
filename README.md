@@ -6,27 +6,44 @@ A lightweight custom Drupal module that creates Twig namespacing and dynamic lib
 
 ### 1. Add the [Union Component System](https://github.com/ilrWebServices/union)
 
-There are a few ways to do this. You could download a zipped file and install in the `libraries/` directory in your webroot. Or, using Composer, you can use [Composer installers extender](https://github.com/oomphinc/composer-installers-extender).
+There are two ways to do this.
+
+1. Download a zipped file and install the contents to the `web/libraries/union/` directory.
+2. Use Composer via [Asset Packagist](https://asset-packagist.org).
+
+To use Composer, ensure that you have the asset-packageist repository added to your `composer.json` file:
+
+```
+    "repositories": [
+        ...
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        }
+    ...
+```
+
+To get the package installed to `web/libraries/`, use [Composer installers extender](https://github.com/oomphinc/composer-installers-extender):
 
 ```
 $ composer require oomphinc/composer-installers-extender
 ```
 
-Then, add or edit the following sections of your `composer.json` file:
+And ensure that `npm-asset`s are configured in the `extra` section of your `composer.json` file:
 
 ```
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/ilrWebServices/union.git"
-        },
-    ...
     "extra": {
-        "installer-types": ["library"],
+        "installer-types": ["npm-asset"],
         "installer-paths": {
-            "web/libraries/{$name}": ["type:drupal-library", "cornell/union"],
+            "web/libraries/union": ["npm-asset/cornell_ilr--union"],
         }
     }
+```
+
+The above steps only need to happen once. To include the Union Component System in your Drupal site:
+
+```
+$ composer require npm-asset/cornell_ilr--union
 ```
 
 ### 2. Add this module to your Drupal Installation
