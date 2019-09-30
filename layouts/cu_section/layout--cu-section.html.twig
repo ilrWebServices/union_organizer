@@ -1,5 +1,20 @@
 {% if content %}
-<section{{ attributes.addClass('cu-section') }}>
+{% set classes = [
+  'cu-section'
+] %}
+
+{# Check for the configuration settings from the layout #}
+{% if settings.extra_classes %}
+  {% set classes = classes|merge(settings.extra_classes|split(' ')) %}
+{% endif %}
+
+{# Check for the configuration settings from the layout #}
+{% if settings.full_width %}
+  {% set classes = classes|merge(['cu-section--wide']) %}
+{% endif %}
+
+
+<section{{ attributes.addClass(classes) }}>
   <div{{ region_attributes.main.addClass('cu-section__content') }}>
     {{ content.main }}
   </div>
