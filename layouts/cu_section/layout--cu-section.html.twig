@@ -1,0 +1,7 @@
+{% if content %}
+<section{{ attributes.addClass('cu-section') }}>
+  <div{{ region_attributes.main.addClass('cu-section__content') }}>
+    {{ content.main }}
+  </div>
+</section>
+{% endif %}

@@ -1,0 +1,10 @@
+layout_cu_section:
+  label: 'Union section'
+  category: 'ILR'
+  template: layouts/cu_section/layout--cu-section
+  default_region: main
+  icon_map:
+    - [main]
+  regions:
+    main:
+      label: Content
