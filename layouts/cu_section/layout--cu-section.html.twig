@@ -1,22 +1,19 @@
 {% if content %}
-{% set classes = [
-  'cu-section'
-] %}
+  {% set classes = [] %}
 
-{# Check for the configuration settings from the layout #}
-{% if settings.extra_classes %}
-  {% set classes = classes|merge(settings.extra_classes|split(' ')) %}
-{% endif %}
+  {# Check for the configuration settings from the layout #}
+  {% if settings.extra_classes %}
+    {% set classes = classes|merge(settings.extra_classes|split(' ')) %}
+  {% endif %}
 
-{# Check for the configuration settings from the layout #}
-{% if settings.full_width %}
-  {% set classes = classes|merge(['cu-section--wide']) %}
-{% endif %}
+  {% if settings.full_width %}
+    {% set classes = classes|merge(['cu-section--wide']) %}
+  {% endif %}
 
+  {% include '@union/_cu-section.twig' with {
+    attributes: attributes.addClass(classes),
+    region_attributes: region_attributes,
+    content: content
+  } only %}
 
-<section{{ attributes.addClass(classes) }}>
-  <div{{ region_attributes.main.addClass('cu-section__content') }}>
-    {{ content.main }}
-  </div>
-</section>
 {% endif %}
