@@ -9,3 +9,15 @@ layout_cu_section:
   regions:
     main:
       label: Content
+layout_cu_twocol:
+  label: 'Two column'
+  category: 'ILR'
+  template: layouts/cu_twocol/layout--cu-twocol
+  default_region: first
+  icon_map:
+    - [first, second]
+  regions:
+    first:
+      label: First
+    second:
+      label: Second
