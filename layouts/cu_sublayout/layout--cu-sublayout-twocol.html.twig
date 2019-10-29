@@ -1,0 +1,47 @@
+{#
+/**
+ * @file
+ * Default union implementation to display a two-column layout.
+ *
+ * Available variables:
+ * - content: The content for this layout.
+ * - attributes: HTML attributes for the layout <div>.
+ *
+ * @ingroup themeable
+ */
+#}
+
+{%
+  set classes = [
+    'layout',
+    'cu-layout--twocol',
+  ]
+%}
+
+{% if settings.full_width %}
+  {% set attributes = attributes.addClass('cu-section--wide') %}
+{% endif %}
+
+{% if settings.collapse_margins %}
+  {% set attributes = attributes.addClass('cu-section--gapless') %}
+{% endif %}
+
+{% if content %}
+  {% set rendered_content %}
+    {% if content.first %}
+      <div {{ region_attributes.first.addClass('layout__region', 'layout__region--first') }}>
+        {{ content.first }}
+      </div>
+    {% endif %}
+
+    {% if content.second %}
+      <div {{ region_attributes.second.addClass('layout__region', 'layout__region--second') }}>
+        {{ content.second }}
+      </div>
+    {% endif %}
+  {% endset %}
+{% endif %}
+{% include '@union/_cu-section.twig' with {
+  content: rendered_content,
+  attributes: attributes.addClass(classes)
+} only %}

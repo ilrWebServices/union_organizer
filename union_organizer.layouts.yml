@@ -1,7 +1,7 @@
 layout_cu_section:
   label: 'Union section'
   category: 'ILR'
-  class: '\Drupal\union_organizer\Plugin\Layout\CuSectionLayout'
+  class: '\Drupal\union_organizer\Plugin\Layout\UnionLayoutDefault'
   template: layouts/cu_section/layout--cu-section
   default_region: main
   icon_map:
@@ -10,9 +10,10 @@ layout_cu_section:
     main:
       label: Content
 layout_cu_twocol:
-  label: 'Two column'
+  label: 'Union Sublayout: 2 Columns'
   category: 'ILR'
-  template: layouts/cu_twocol/layout--cu-twocol
+  class: '\Drupal\union_organizer\Plugin\Layout\UnionLayoutDefault'
+  template: layouts/cu_sublayout/layout--cu-sublayout-twocol
   default_region: first
   icon_map:
     - [first, second]
@@ -21,3 +22,14 @@ layout_cu_twocol:
       label: First
     second:
       label: Second
+layout_cu_onecol:
+  label: 'Union Sublayout: 1 Column'
+  category: 'ILR'
+  class: '\Drupal\union_organizer\Plugin\Layout\UnionLayoutDefault'
+  template: layouts/cu_sublayout/layout--cu-sublayout-onecol
+  default_region: first
+  icon_map:
+    - [main]
+  regions:
+    main:
+      label: Content
