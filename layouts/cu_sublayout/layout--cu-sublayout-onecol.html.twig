@@ -28,6 +28,10 @@
 
 {% if content %}
   {% set rendered_content %}
+    {% if content.ilr_hidden_header %}
+      {{ content.ilr_hidden_header }}
+    {% endif %}
+
     {% if content.main %}
       <div {{ region_attributes.main.addClass('layout__region', 'layout__region--main') }}>
         {{ content.main }}
