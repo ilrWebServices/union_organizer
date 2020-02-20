@@ -1,0 +1,61 @@
+{#
+/**
+ * @file
+ * Default union implementation to display a grid layout.
+ *
+ * Available variables:
+ * - content: The content for this layout.
+ * - attributes: HTML attributes for the layout <div>.
+ *
+ * @ingroup themeable
+ */
+#}
+
+{%
+  set classes = [
+    'layout',
+    'cu-layout--grid',
+  ]
+%}
+
+{%
+  set region_classes = [
+    'layout__region',
+    'layout__region--main',
+    'cu-grid',
+  ]
+%}
+
+{% if settings.full_width %}
+  {% set attributes = attributes.addClass('cu-section--wide') %}
+{% endif %}
+
+{% if settings.collapse_margins %}
+  {% set attributes = attributes.addClass('cu-section--gapless') %}
+  {% set region_classes = region_classes|merge(['cu-grid--gapless']) %}
+{% endif %}
+
+{% if settings.grid_type == 'autogrid' %}
+  {% set region_classes = region_classes|merge(['cu-grid--' ~ settings.autogrid_column_count ~ 'col']) %}
+{% else %}
+  {% set region_classes = region_classes|merge(['cu-grid--' ~ settings.grid_type]) %}
+{% endif %}
+
+{% if content %}
+  {% set rendered_content %}
+  {% if content.ilr_hidden_header %}
+    {{ content.ilr_hidden_header }}
+  {% endif %}
+
+  {% if content.main %}
+    <div {{ region_attributes.main.addClass(region_classes) }}>
+      {{ content.main }}
+    </div>
+  {% endif %}
+  {% endset %}
+{% endif %}
+{% include '@union/_cu-section.twig' with {
+  content: rendered_content,
+  attributes: attributes.addClass(classes)
+} only %}
+

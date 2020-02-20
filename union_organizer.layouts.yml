@@ -33,3 +33,15 @@ layout_cu_onecol:
   regions:
     main:
       label: Content
+layout_cu_autogrid:
+  label: 'Union Sublayout: Grid'
+  category: 'ILR'
+  class: '\Drupal\union_organizer\Plugin\Layout\UnionLayoutGrid'
+  template: layouts/cu_sublayout/layout--cu-sublayout-grid
+  default_region: first
+  icon_map:
+    - [main]
+    - [first, second]
+  regions:
+    main:
+      label: Content
