@@ -9,6 +9,17 @@ layout_cu_section:
   regions:
     main:
       label: Content
+layout_cu_onecol:
+  label: 'Union Sublayout: 1 Column'
+  category: 'ILR'
+  class: '\Drupal\union_organizer\Plugin\Layout\UnionLayoutDefault'
+  template: layouts/cu_sublayout/layout--cu-sublayout-onecol
+  default_region: first
+  icon_map:
+    - [main]
+  regions:
+    main:
+      label: Content
 layout_cu_twocol:
   label: 'Union Sublayout: 2 Columns'
   category: 'ILR'
@@ -22,17 +33,6 @@ layout_cu_twocol:
       label: First
     second:
       label: Second
-layout_cu_onecol:
-  label: 'Union Sublayout: 1 Column'
-  category: 'ILR'
-  class: '\Drupal\union_organizer\Plugin\Layout\UnionLayoutDefault'
-  template: layouts/cu_sublayout/layout--cu-sublayout-onecol
-  default_region: first
-  icon_map:
-    - [main]
-  regions:
-    main:
-      label: Content
 layout_cu_autogrid:
   label: 'Union Sublayout: Grid'
   category: 'ILR'
