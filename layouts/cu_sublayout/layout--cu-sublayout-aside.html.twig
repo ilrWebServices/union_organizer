@@ -1,0 +1,62 @@
+{#
+/**
+ * @file
+ * Default union implementation to display a layout with aside (left for now).
+ *
+ * Available variables:
+ * - content: The content for this layout.
+ * - attributes: HTML attributes for the layout <div>.
+ *
+ * @ingroup themeable
+ */
+#}
+
+{%
+  set classes = [
+    'layout',
+    'cu-layout--aside-left',
+  ]
+%}
+
+{%
+  set main_region_classes = [
+    'layout__region',
+    'layout__region--main',
+  ]
+%}
+
+{%
+  set aside_region_classes = [
+    'layout__region',
+    'layout__region--aside',
+  ]
+%}
+
+
+{% if settings.full_width %}
+  {% set attributes = attributes.addClass('cu-section--wide') %}
+{% endif %}
+
+{% if content %}
+  {% set rendered_content %}
+    {% if content.ilr_hidden_header %}
+      {{ content.ilr_hidden_header }}
+    {% endif %}
+
+    {% if content.main %}
+      <div {{ region_attributes.main.addClass(main_region_classes) }}>
+        {{ content.main }}
+      </div>
+    {% endif %}
+    {% if content.second %}
+      <div {{ region_attributes.aside.addClass(aside_region_classes) }}>
+        {{ content.second }}
+      </div>
+    {% endif %}
+  {% endset %}
+{% endif %}
+{% include '@union/_cu-section.twig' with {
+  content: rendered_content,
+  attributes: attributes.addClass(classes)
+} only %}
+

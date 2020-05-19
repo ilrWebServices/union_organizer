@@ -33,6 +33,19 @@ layout_cu_twocol:
       label: First
     second:
       label: Second
+layout_cu_aside:
+  label: 'Union Sublayout: Aside left'
+  category: 'ILR'
+  class: '\Drupal\union_organizer\Plugin\Layout\UnionLayoutDefault'
+  template: layouts/cu_sublayout/layout--cu-sublayout-aside
+  default_region: main
+  icon_map:
+    - [second, main]
+  regions:
+    second:
+      label: Aside
+    main:
+      label: Content
 layout_cu_autogrid:
   label: 'Union Sublayout: Grid'
   category: 'ILR'
