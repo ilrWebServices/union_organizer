@@ -6,14 +6,11 @@ namespace Drupal\union_organizer;
  * Loads templates from the filesystem.
  *
  * This loader adds the `@union` namespace to the Twig filesystem loader so that
- * templates can be referenced by namespace, like.
+ * templates can be referenced by namespace, like:
  *
  * @union/button/button.twig.
  */
 class UnionTwigLoader extends \Twig_Loader_Filesystem {
-
-  // Keep track of libraries that we attempt to register.
-  // protected $libraries = array();
 
   /**
    * Constructs a new ComponentsLoader object.

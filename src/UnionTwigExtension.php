@@ -25,9 +25,8 @@ class UnionTwigExtension extends \Twig_Extension {
   /**
    * Creates a cross-platform Drupal Attribute object.
    *
-   * @param array|Attribute $attributes
-   *
-   * @return void
+   * @param array|Drupal\Core\Template\Attribute $attributes
+   *   An array of attribute name/value pairs or an existing attribute object.
    */
   public function unionAttributes($attributes) {
     return is_array($attributes) ? new Attribute($attributes) : $attributes;
@@ -38,12 +37,13 @@ class UnionTwigExtension extends \Twig_Extension {
    *
    * E.g. union_file('components/logo/union.svg').
    *
-   * @todo
-   *   - Make the file path prefix configurable. How? Dunno!
+   * @todo Make the file path prefix configurable. How? Dunno!
    *
    * @param string $filepath
+   *   A relative file path for a Union component.
    *
-   * @return string Full path
+   * @return string
+   *   Full path
    */
   public function unionFile($filepath) {
     return '/libraries/union/source/' . $filepath;

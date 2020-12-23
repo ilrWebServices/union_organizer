@@ -53,7 +53,7 @@ class UnionLayoutDefault extends LayoutDefault implements PluginFormInterface {
   }
 
   /**
-   * @inheritdoc
+   * {@inheritdoc}
    */
   public function validateConfigurationForm(array &$form, FormStateInterface $form_state) {
     // This abstract method required by PluginFormInterface.
