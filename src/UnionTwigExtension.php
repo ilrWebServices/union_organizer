@@ -1,14 +1,8 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\union_organizer\UnionTwigExtension.
- * @see twig_tweak for example code
- */
-
 namespace Drupal\union_organizer;
 
-use \Drupal\Core\Template\Attribute;
+use Drupal\Core\Template\Attribute;
 
 /**
  * Twig extension with some useful functions and filters.
@@ -32,6 +26,7 @@ class UnionTwigExtension extends \Twig_Extension {
    * Creates a cross-platform Drupal Attribute object.
    *
    * @param array|Attribute $attributes
+   *
    * @return void
    */
   public function unionAttributes($attributes) {
@@ -47,6 +42,7 @@ class UnionTwigExtension extends \Twig_Extension {
    *   - Make the file path prefix configurable. How? Dunno!
    *
    * @param string $filepath
+   *
    * @return string Full path
    */
   public function unionFile($filepath) {
