@@ -46,7 +46,7 @@ class UnionTwigExtension extends \Twig_Extension {
    *   Full path
    */
   public function unionFile($filepath) {
-    return '/libraries/union/source/' . $filepath;
+    return '/Users/jeff/sites/drupal.ilr.test/vendor/cornell/union/' . $filepath;
   }
 
 }
