@@ -3,36 +3,78 @@
 namespace Drupal\union_organizer;
 
 use Union\Components;
+use Twig\Loader\LoaderInterface;
+use Twig\Error\LoaderError;
+use Twig\Source;
 
 /**
- * Loads templates from the filesystem.
+ * Loads templates from Union.
  *
- * This loader adds the `@union` namespace to the Twig filesystem loader so that
- * templates can be referenced by namespace, like:
+ * This custom loader provides a `@union` namespace for Union twig templates.
+ * The following formats are allowed:
  *
- * @union/button/button.twig.
+ * - @union/_card.twig
+ * - @union/_card
  */
-class UnionTwigLoader extends \Twig_Loader_Filesystem {
+class UnionTwigLoader implements LoaderInterface  {
+
+  protected $components = [];
 
   /**
-   * Constructs a new ComponentsLoader object.
-   *
-   * @param string|array $paths
-   *   A path or an array of paths to check for templates.
+   * Constructs a new UnionTwigLoader object.
    */
-  public function __construct($paths = []) {
-    // Don't pass $paths to __contruct() or it will create the default Twig
-    // namespace in this Twig loader.
-    parent::__construct();
-
+  public function __construct() {
     $union_components = new Components;
-    $paths = [];
 
     foreach ($union_components->getComponents() as $component) {
-      $paths[] = realpath($component->template->getPath());
+      $this->components['@union/' . $component->id() . '.twig'] = $component;
+      $this->components['@union/' . $component->id()] = $component;
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getSourceContext($name) {
+    $name = (string) $name;
+
+    if (!isset($this->components[$name])) {
+      throw new LoaderError(sprintf('Template "%s" is not defined.', $name));
     }
 
-    $this->setPaths(array_unique($paths), "union");
+    // Append an `{{ attach_library() }}` call to the source of the component.
+    $component_source = file_get_contents($this->components[$name]->template->getPathName());
+    $library_id = 'union_organizer/' . preg_replace('/^_*/', '', $this->components[$name]->id());
+    return new Source($component_source . "{{ attach_library('$library_id') }}", $name);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getCacheKey($name) {
+    if (!isset($this->components[$name])) {
+      throw new LoaderError(sprintf('Template "%s" is not defined.', $name));
+    }
+
+    return $name;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function isFresh($name, $time) {
+    if (!isset($this->components[$name])) {
+      throw new LoaderError(sprintf('Template "%s" is not defined.', $name));
+    }
+
+    return TRUE;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function exists($name) {
+    return isset($this->components[$name]);
   }
 
 }
