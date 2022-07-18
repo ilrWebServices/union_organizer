@@ -2,6 +2,8 @@
 
 namespace Drupal\union_organizer;
 
+use Union\Components;
+
 /**
  * Loads templates from the filesystem.
  *
@@ -23,15 +25,11 @@ class UnionTwigLoader extends \Twig_Loader_Filesystem {
     // namespace in this Twig loader.
     parent::__construct();
 
+    $union_components = new Components;
     $paths = [];
 
-    // Find all twig files, including components and skins.
-    // @todo Should skins templates be in the same namespace as components?
-    $twig_files = \Drupal::service('file_system')->scanDirectory('libraries/union/source/', '/.*\.twig$/', ['key' => 'filename']);
-
-    foreach ($twig_files as $component) {
-      // Add the component path (excluding the twig filename) to the path array.
-      $paths[] = substr($component->uri, 0, strlen($component->filename) * -1);
+    foreach ($union_components->getComponents() as $component) {
+      $paths[] = realpath($component->template->getPath());
     }
 
     $this->setPaths(array_unique($paths), "union");

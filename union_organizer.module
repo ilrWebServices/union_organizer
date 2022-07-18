@@ -5,7 +5,9 @@
  * Contains union_organizer.module.
  */
 
-use Drupal\Core\Serialization\Yaml;
+use Drupal\Core\File\Exception\FileException;
+use Drupal\Core\File\FileSystemInterface;
+use Union\Components;
 
 /**
  * Implements hook_library_info_build().
@@ -21,60 +23,89 @@ use Drupal\Core\Serialization\Yaml;
  */
 function union_organizer_library_info_build() {
   $libraries = [];
-
-  $union_libraries = \Drupal::service('file_system')->scanDirectory('libraries/union/source/', '/.*\.libraries.yml$/', ['key' => 'filename']);
+  $path_base = 'public://union';
+  $filesystem = \Drupal::service('file_system');
+  $union_components = new Components;
 
   // Normalize each Union component library into a usable Drupal library. This
   // involves fixing the .css and .js paths and prefixing the dependencies.
-  foreach ($union_libraries as $union_library) {
-    $file_path = $union_library->uri;
-    $library = Yaml::decode(file_get_contents($file_path));
+  foreach ($union_components->getComponents() as $component) {
+    $library = [];
+    $library_id = preg_replace('/^_*/', '', $component->id());
+    $path = $path_base . '/' . $component->id() . '/';
+    $filesystem->prepareDirectory($path, FileSystemInterface::CREATE_DIRECTORY);
+    $css = $component->getCss();
+    usort($css, function($a, $b) {
+      return $a->getFilename() <=> $b->getFilename();
+    });
 
-    $library_name = basename($union_library->name, '.libraries');
+    foreach ($css as $file) {
+      $level = 'component';
+      $uri = $path . $file->getBaseName();
 
-    if (isset($library['css'])) {
-      foreach ($library['css'] as $file_name => $options) {
-        unset($library['css'][$file_name]);
-
-        $level = 'component';
-
-        // Skin libraries should use the `base` level rather than `component`.
-        // @see https://www.drupal.org/docs/8/creating-custom-modules/adding-stylesheets-css-and-javascript-js-to-a-drupal-8-module
-        if (strpos($union_library->uri, '/skins/') !== FALSE) {
-          $level = 'base';
+      try {
+        if (!$filesystem->copy($file->getRealPath(), $uri, FileSystemInterface::EXISTS_REPLACE)) {
+          continue;
         }
+      }
+      catch (FileException $e) {
+        continue;
+      }
 
-        // Layout libraries should use the `layout` level.
-        // @see https://www.drupal.org/docs/8/creating-custom-modules/adding-stylesheets-css-and-javascript-js-to-a-drupal-8-module
-        if (strpos($union_library->uri, '/layouts/') !== FALSE) {
-          $level = 'layout';
+      // The _base library should use the `base` level rather than `component`.
+      // @see https://www.drupal.org/docs/8/creating-custom-modules/adding-stylesheets-css-and-javascript-js-to-a-drupal-8-module
+      if ($component->id() === '_base') {
+        $level = 'base';
+      }
+      // Non-base libraries should have a dependency on base.
+      else {
+        // @todo Figure out a better way to add dependencies. Perhaps a custom phpdoc tag like @x-union-requires.
+        $library['dependencies'][0] = 'union_organizer/base';
+      }
+
+      // The _ilr-base library should also use the `base` level, but it should
+      // also get the base dependency.
+      if ($component->id() === '_ilr-base') {
+        $level = 'base';
+      }
+
+      // Layout libraries should use the `layout` level.
+      // @see https://www.drupal.org/docs/8/creating-custom-modules/adding-stylesheets-css-and-javascript-js-to-a-drupal-8-module
+      // if (strpos($union_library->uri, '/layouts/') !== FALSE) {
+      //   $level = 'layout';
+      // }
+
+      $library['css'][$level][$uri] = [];
+    }
+
+    foreach ($component->getJs() as $file) {
+      $uri = $path . $file->getBaseName();
+
+      try {
+        if (!$filesystem->copy($file->getRealPath(), $uri, FileSystemInterface::EXISTS_REPLACE)) {
+          continue;
         }
-
-        $library['css'][$level][
-          \Drupal::request()->getBaseUrl() . '/' . dirname($file_path) . '/' . $file_name
-        ] = $options;
       }
+      catch (FileException $e) {
+        continue;
+      }
+
+      $library['js'][$uri] = [];
     }
 
-    if (isset($library['js'])) {
-      foreach ($library['js'] as $file_name => $options) {
-        unset($library['js'][$file_name]);
-
-        $library['js'][
-          \Drupal::request()->getBaseUrl() . '/' . dirname($file_path) . '/' . $file_name
-        ] = $options;
-      }
+    if (!empty($library['css']) || !empty($library['js'])) {
+      $libraries[$library_id] = $library;
     }
-
-    if (isset($library['dependencies'])) {
-      foreach ($library['dependencies'] as $key => $dep) {
-        $library['dependencies'][$key] = 'union_organizer/' . $dep;
-      }
-    }
-
-    // @todo Consider adding a namespace for skins (e.g. `skin-ilr`).
-    $libraries[$library_name] = $library;
   }
 
   return $libraries;
+}
+
+/**
+ * Implements hook_cache_flush().
+ */
+function union_organizer_cache_flush() {
+  if (is_dir('public://union')) {
+    \Drupal::service('file_system')->deleteRecursive('public://union');
+  }
 }
