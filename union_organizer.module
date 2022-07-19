@@ -10,6 +10,21 @@ use Drupal\Core\File\FileSystemInterface;
 use Union\Components;
 
 /**
+ *  Implements hook_theme().
+ */
+function union_organizer_theme($existing, $type, $theme, $path) {
+  return [
+    'component_info' => [
+      'variables' => [
+        'label' => '',
+        'description' => '',
+        'url' => '',
+      ],
+    ],
+  ];
+}
+
+/**
  * Implements hook_library_info_build().
  *
  * Add dynamic library definitions for Union components.
