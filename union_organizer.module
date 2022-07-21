@@ -47,7 +47,7 @@ function union_organizer_library_info_build() {
   foreach ($union_components->getComponents() as $component) {
     $library = [];
     $library_id = preg_replace('/^_*/', '', $component->id());
-    $path = $path_base . '/' . $component->id() . '/';
+    $path = $path_base . '/' . $component->id();
     $filesystem->prepareDirectory($path, FileSystemInterface::CREATE_DIRECTORY);
     $css = $component->getCss();
     usort($css, function($a, $b) {
@@ -56,7 +56,7 @@ function union_organizer_library_info_build() {
 
     foreach ($css as $file) {
       $level = 'component';
-      $uri = $path . $file->getBaseName();
+      $uri = $path . '/' . $file->getBaseName();
 
       try {
         if (!$filesystem->copy($file->getRealPath(), $uri, FileSystemInterface::EXISTS_REPLACE)) {
@@ -94,7 +94,7 @@ function union_organizer_library_info_build() {
     }
 
     foreach ($component->getJs() as $file) {
-      $uri = $path . $file->getBaseName();
+      $uri = $path . '/' . $file->getBaseName();
 
       try {
         if (!$filesystem->copy($file->getRealPath(), $uri, FileSystemInterface::EXISTS_REPLACE)) {
@@ -106,6 +106,26 @@ function union_organizer_library_info_build() {
       }
 
       $library['js'][$uri] = [];
+    }
+
+    foreach ($component->getFonts() as $file) {
+      $subdir = str_replace(dirname($component->template->getRealPath()), '', dirname($file->getRealPath()));
+
+      if ($subdir) {
+        $fontpath = $path . $subdir;
+        $filesystem->prepareDirectory($fontpath, FileSystemInterface::CREATE_DIRECTORY);
+      }
+
+      $uri = $path . $subdir . '/'. $file->getBaseName();
+
+      try {
+        if (!$filesystem->copy($file->getRealPath(), $uri, FileSystemInterface::EXISTS_REPLACE)) {
+          continue;
+        }
+      }
+      catch (FileException $e) {
+        continue;
+      }
     }
 
     if (!empty($library['css']) || !empty($library['js'])) {
