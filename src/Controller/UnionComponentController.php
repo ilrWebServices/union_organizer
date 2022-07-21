@@ -49,6 +49,9 @@ class UnionComponentController extends ControllerBase {
     $components = new Components();
     $component = $components->getComponent($component_id, TRUE);
 
+    // Re-build asset libraries to support changes to the source code in vendor/
+    // during development. @see union_organizer_library_info_build().
+    \Drupal::service('library.discovery.parser')->buildByExtension('union_organizer');
 
     if ($component) {
       $component_source = file_get_contents($component->template->getPathName());
