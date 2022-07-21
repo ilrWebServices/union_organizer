@@ -42,10 +42,15 @@ class UnionTwigLoader implements LoaderInterface  {
       throw new LoaderError(sprintf('Template "%s" is not defined.', $name));
     }
 
-    // Append an `{{ attach_library() }}` call to the source of the component.
     $component_source = file_get_contents($this->components[$name]->template->getPathName());
-    $library_id = 'union_organizer/' . preg_replace('/^_*/', '', $this->components[$name]->id());
-    return new Source($component_source . "{{ attach_library('$library_id') }}", $name);
+
+    if ($this->components[$name]->getCss() || $this->components[$name]->getJs()) {
+      // Append an `{{ attach_library() }}` call to the source of the component.
+      $library_id = 'union_organizer/' . preg_replace('/^_*/', '', $this->components[$name]->id());
+      $component_source .= PHP_EOL . "{{ attach_library('$library_id') }}";
+    }
+
+    return new Source($component_source, $name);
   }
 
   /**
