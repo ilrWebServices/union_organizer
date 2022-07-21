@@ -72,7 +72,8 @@ function union_organizer_library_info_build() {
       // The _base library should use the `base` level rather than `component`.
       // @see https://www.drupal.org/docs/8/creating-custom-modules/adding-stylesheets-css-and-javascript-js-to-a-drupal-8-module
       if ($component->id() === '_base') {
-        $level = 'base';
+        // @todo Fix the larger font size that results from setting this component to the base level.
+        // $level = 'base';
       }
       // Non-base libraries should have a dependency on base.
       else {
