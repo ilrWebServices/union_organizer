@@ -86,7 +86,7 @@ class UnionComponentController extends ControllerBase {
         $build['demo'][$demo_num] = [
           '#type' => 'container',
           '#attributes' => [
-            'style' => 'padding: 2em; margin: 2em 0; background: #ccc; background: repeating-conic-gradient(#ccc 0% 25%, transparent 0% 50%) 50% / 10px 10px;',
+            'style' => 'padding-top: 1em; margin: 2em 0; border-top: 2px solid #b31b1b;',
           ],
         ];
 
@@ -97,6 +97,13 @@ class UnionComponentController extends ControllerBase {
         }
 
         $build['demo'][$demo_num]['item'] = [
+          '#type' => 'container',
+          '#attributes' => [
+            'style' => 'margin: 2em 0; background: #ccc; background: repeating-conic-gradient(#ccc 0% 25%, transparent 0% 50%) 50% / 10px 10px;',
+          ],
+        ];
+
+        $build['demo'][$demo_num]['item'][] = [
           '#type' => 'inline_template',
           '#template' => $component_source . "{{ attach_library('$library_id') }}",
           '#context' => $demo_data_item,
