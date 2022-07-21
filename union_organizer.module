@@ -19,6 +19,8 @@ function union_organizer_theme($existing, $type, $theme, $path) {
         'label' => '',
         'description' => '',
         'url' => '',
+        'template_vars' => '',
+        'reference_links' => '',
       ],
     ],
   ];
