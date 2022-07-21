@@ -6,7 +6,7 @@ use Drupal\Component\Render\FormattableMarkup;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Url;
 use Union\Components;
-use Parsedown;
+use Parsedown as Parsedown;
 use phpDocumentor\Reflection\Types\String_;
 
 /**
@@ -31,8 +31,7 @@ class UnionComponentController extends ControllerBase {
       $build['#items'][] = [
         '#theme' => 'component_info',
         '#label' => $component->getLabel() ?? $component->id(),
-        // '#description' => (new Parsedown())->text($component->getDescription()),
-        '#description' => $component->getDescription(),
+        '#description' => (new Parsedown())->text($component->getDescription()),
         '#url' => Url::fromRoute('union_organizer.component.view', [
           'component_id' => $component->id(),
         ]),
@@ -50,48 +49,29 @@ class UnionComponentController extends ControllerBase {
     $components = new Components();
     $component = $components->getComponent($component_id, TRUE);
 
-    // dump($component);
 
     if ($component) {
       $component_source = file_get_contents($component->template->getPathName());
       $library_id = 'union_organizer/' . preg_replace('/^_*/', '', $component->id());
       $template_vars = $component->getTemplateVars();
       $string_vars = [];
-      $var_list = [];
-      $demo_data = $component->getDemoData();
 
       /** @var \phpDocumentor\Reflection\DocBlock\Tags\Var_ $var */
       foreach ($template_vars as $var) {
-        $var_list[] = strtr(<<<VAR
-        %varname - %vartype
-          %description
-        VAR, [
-          '%varname' => $var->getVariableName(),
-          '%vartype' => $var->getType(),
-          '%description' => wordwrap($var->getDescription(), 75, "\n  "),
-        ]);
-
         if ($var->getType() instanceof String_) {
           $string_vars[] = $var->getVariableName();
         }
       }
 
       $build['info'] = [
-        '#type' => 'inline_template',
-        '#template' => <<<TPL
-        <h2 class="cu-heading">{{ label }}</h2>
-        <div>{{ description }}</div>
-        <p><strong>{% trans %}Variables{% endtrans %}:</strong></p>
-        <pre>{{ vars }}</pre>
-        TPL,
-        '#context' => [
-          'label' => $component->getLabel() ?? $component->id(),
-          'description' => $component->getDescription(),
-          'vars' => implode(PHP_EOL . PHP_EOL, $var_list),
-        ],
+        '#theme' => 'component_info',
+        '#label' => $component->getLabel() ?? $component->id(),
+        '#description' => (new Parsedown())->text($component->getDescription()),
+        '#template_vars' => $template_vars,
+        '#reference_links' => $component->getReferences(),
       ];
 
-      foreach ($demo_data as $demo_num => $demo_data_item) {
+      foreach ($component->getDemoData() as $demo_num => $demo_data_item) {
         // Convert all string values into a FormattableMarkup object to prevent
         // autoescaping of HTML. See https://www.drupal.org/node/2296163
         foreach ($demo_data_item as $demo_var_name => $demo_var_value) {
