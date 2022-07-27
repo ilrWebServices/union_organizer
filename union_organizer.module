@@ -136,6 +136,15 @@ function union_organizer_library_info_build() {
     }
   }
 
+  // Union images
+  $imagepath = $path_base . '/images';
+  $filesystem->prepareDirectory($imagepath, FileSystemInterface::CREATE_DIRECTORY);
+  try {
+    $filesystem->copy($union_components->getImagePath() . '/icons.svg', $imagepath . '/icons.svg', FileSystemInterface::EXISTS_REPLACE);
+  }
+  catch (FileException $e) {
+  }
+
   return $libraries;
 }
 

@@ -46,7 +46,7 @@ class UnionTwigExtension extends \Twig_Extension {
    *   Full path
    */
   public function unionFile($filepath) {
-    return '/libraries/union/source/' . $filepath;
+    return '/' . \Drupal\Core\StreamWrapper\PublicStream::basePath() . '/union' . $filepath;
   }
 
 }
