@@ -92,7 +92,7 @@ class UnionComponentController extends ControllerBase {
 
         if (isset($demo_data_item['demo_label'])) {
           $build['demo'][$demo_num]['label'] = [
-            '#markup' => '<h3 class="cu-heading">' . $demo_data_item['demo_label'] . '</h3>',
+            '#markup' => '<a href="#' . $demo_num . '" >🔗</a><h3 id="' . $demo_num . '" class="cu-heading">' . $demo_data_item['demo_label'] . '</h3>',
           ];
         }
 
