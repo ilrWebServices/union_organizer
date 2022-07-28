@@ -32,6 +32,10 @@ class FilterUnionComponents extends FilterBase {
       $libraries[] = 'union_organizer/button';
     }
 
+    if (preg_match('/class=".*cu-icon.*"/', $text)) {
+      $libraries[] = 'union_organizer/icon';
+    }
+
     $result->addAttachments([
       'library' => $libraries,
     ]);
