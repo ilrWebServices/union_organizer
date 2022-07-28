@@ -4,11 +4,11 @@ union_organizer.component.collection:
     _controller: '\Drupal\union_organizer\Controller\UnionComponentController::componentsView'
     _title: 'Union Components'
   requirements:
-    _permission: 'access administration pages'
+    _permission: 'access content'
 union_organizer.component.view:
   path: '/union/components/{component_id}'
   defaults:
     _controller: '\Drupal\union_organizer\Controller\UnionComponentController::componentView'
     _title: 'Union Component'
   requirements:
-    _permission: 'access administration pages'
+    _permission: 'access content'
