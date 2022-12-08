@@ -39,7 +39,7 @@
     {% endif %}
   {% endset %}
 {% endif %}
-{% include '@union/_cu-section.twig' with {
+{% include '@union/_section.twig' with {
   content: rendered_content,
   attributes: attributes.addClass(classes)
 } only %}

@@ -14,7 +14,7 @@
     {% set classes = classes|merge(['cu-section--gapless']) %}
   {% endif %}
 
-  {% include '@union/_cu-section.twig' with {
+  {% include '@union/_section.twig' with {
     attributes: attributes.addClass(classes),
     region_attributes: region_attributes,
     content: content
