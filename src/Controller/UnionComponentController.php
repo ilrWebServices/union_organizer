@@ -31,7 +31,7 @@ class UnionComponentController extends ControllerBase {
       $build['#items'][] = [
         '#theme' => 'component_info',
         '#label' => $component->getLabel() ?? $component->id(),
-        '#description' => (new Parsedown())->text($component->getDescription()),
+        '#description' => (new Parsedown())->text($component->getShortDescription()),
         '#url' => Url::fromRoute('union_organizer.component.view', [
           'component_id' => $component->id(),
         ]),
