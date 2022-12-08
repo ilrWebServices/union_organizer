@@ -99,7 +99,7 @@ class UnionComponentController extends ControllerBase {
         $build['demo'][$demo_num]['item'] = [
           '#type' => 'container',
           '#attributes' => [
-            'style' => 'margin: 2em 0; background: #ccc; background: repeating-conic-gradient(#ccc 0% 25%, transparent 0% 50%) 50% / 10px 10px;',
+            'style' => 'display: inline-block; width: 100%; margin: 2em 0; background: #ccc; background: repeating-conic-gradient(#ccc 0% 25%, transparent 0% 50%) 50% / 10px 10px;',
           ],
         ];
 
