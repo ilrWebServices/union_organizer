@@ -9,6 +9,17 @@
   </h2>
   {% endif %}
 
+  {% if deprecations %}
+  <div style="background: lightgray; padding: 0 1em;">
+  <h3 class="cu-heading">{% trans %}Deprecated{% endtrans %}:</h3>
+  <ul class="component-info--deprecated">
+  {% for deprecation in deprecations %}
+    <li>{{ deprecation.getDescription() }}</li>
+  {% endfor %}
+  </ul>
+  </div>
+  {% endif %}
+
   {% if description %}<div class="component-info--description">{{ description }}</div>{% endif %}
 
   {% if template_vars %}
@@ -23,11 +34,32 @@
   </ul>
   {% endif %}
 
+  {% if variations %}
+  <h3 class="cu-heading">{% trans %}Variations{% endtrans %}:</h3>
+  <ul class="component-info--variations">
+  {% for variation in variations %}
+    <li>
+      <code><strong>{{ variation.getClassName() }}</strong></code><br />
+      {{ variation.getDescription() }}
+    </li>
+  {% endfor %}
+  </ul>
+  {% endif %}
+
   {% if reference_links %}
   <h3 class="cu-heading">{% trans %}References{% endtrans %}:</h3>
   <ul class="component-info--reference-links">
   {% for reference_link in reference_links %}
     <li><a href="{{ reference_link.getReference() }}" target="_blank">{{ reference_link.getDescription() }}</a></li>
+  {% endfor %}
+  </ul>
+  {% endif %}
+
+  {% if todos %}
+  <h3 class="cu-heading">{% trans %}Todos{% endtrans %}:</h3>
+  <ul class="component-info--todos">
+  {% for todo in todos %}
+    <li>{{ todo.getDescription() }}</li>
   {% endfor %}
   </ul>
   {% endif %}

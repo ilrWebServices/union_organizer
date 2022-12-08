@@ -20,7 +20,10 @@ function union_organizer_theme($existing, $type, $theme, $path) {
         'description' => '',
         'url' => '',
         'template_vars' => '',
+        'variations' => [],
         'reference_links' => '',
+        'todos' => [],
+        'deprecations' => [],
       ],
     ],
   ];

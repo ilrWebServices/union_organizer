@@ -71,7 +71,10 @@ class UnionComponentController extends ControllerBase {
         '#label' => $component->getLabel() ?? $component->id(),
         '#description' => (new Parsedown())->text($component->getDescription()),
         '#template_vars' => $template_vars,
+        '#variations' => $component->getVariations(),
         '#reference_links' => $component->getReferences(),
+        '#todos' => $component->getTodos(),
+        '#deprecations' => $component->getDeprecations(),
       ];
 
       foreach ($component->getDemoData() as $demo_num => $demo_data_item) {
