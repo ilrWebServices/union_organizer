@@ -20,6 +20,12 @@
   </div>
   {% endif %}
 
+  {% if css_category %}
+  <p class="component-info--css-category">
+    <code style="background: lightgray; border-radius: 5px; padding: .5em 1em; font-size: .6em;" title="CSS category">{{ css_category }}</code>
+  </p>
+  {% endif %}
+
   {% if description %}<div class="component-info--description">{{ description }}</div>{% endif %}
 
   {% if template_vars %}

@@ -74,6 +74,7 @@ class UnionComponentController extends ControllerBase {
         '#reference_links' => $component->getReferences(),
         '#todos' => $component->getTodos(),
         '#deprecations' => $component->getDeprecations(),
+        '#css_category' => $component->getCssCategory(),
       ];
 
       foreach ($component->getDemoData() as $demo_num => $demo_data_item) {

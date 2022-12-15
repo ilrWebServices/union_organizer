@@ -24,6 +24,7 @@ function union_organizer_theme($existing, $type, $theme, $path) {
         'reference_links' => '',
         'todos' => [],
         'deprecations' => [],
+        'css_category' => '',
       ],
     ],
   ];
