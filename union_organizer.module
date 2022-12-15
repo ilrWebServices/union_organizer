@@ -54,13 +54,19 @@ function union_organizer_library_info_build() {
     $library_id = preg_replace('/^_*/', '', $component->id());
     $path = $path_base . '/' . $component->id();
     $filesystem->prepareDirectory($path, FileSystemInterface::CREATE_DIRECTORY);
+    $css_category = $component->getCssCategory();
     $css = $component->getCss();
     usort($css, function($a, $b) {
       return $a->getFilename() <=> $b->getFilename();
     });
 
+    // Add library dependencies.
+    // @todo Figure out a better way to add dependencies. Perhaps a custom phpdoc tag like @union-dependency.
+    if ($css_category !== 'base' || $component->id() === '_ilr-base') {
+      $library['dependencies'][0] = 'union_organizer/base';
+    }
+
     foreach ($css as $file) {
-      $level = 'component';
       $uri = $path . '/' . $file->getBaseName();
 
       try {
@@ -72,30 +78,7 @@ function union_organizer_library_info_build() {
         continue;
       }
 
-      // The _base library should use the `base` level rather than `component`.
-      // @see https://www.drupal.org/docs/8/creating-custom-modules/adding-stylesheets-css-and-javascript-js-to-a-drupal-8-module
-      if ($component->id() === '_base') {
-        $level = 'base';
-      }
-      // Non-base libraries should have a dependency on base.
-      else {
-        // @todo Figure out a better way to add dependencies. Perhaps a custom phpdoc tag like @x-union-requires.
-        $library['dependencies'][0] = 'union_organizer/base';
-      }
-
-      // The _ilr-base library should also use the `base` level, but it should
-      // also get the base dependency.
-      if ($component->id() === '_ilr-base') {
-        $level = 'base';
-      }
-
-      // Layout libraries should use the `layout` level.
-      // @see https://www.drupal.org/docs/8/creating-custom-modules/adding-stylesheets-css-and-javascript-js-to-a-drupal-8-module
-      // if (strpos($union_library->uri, '/layouts/') !== FALSE) {
-      //   $level = 'layout';
-      // }
-
-      $library['css'][$level][$uri] = [];
+      $library['css'][$css_category][$uri] = [];
     }
 
     foreach ($component->getJs() as $file) {
