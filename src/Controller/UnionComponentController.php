@@ -59,7 +59,6 @@ class UnionComponentController extends ControllerBase {
       $template_vars = $component->getTemplateVars();
       $string_vars = [];
 
-      /** @var \phpDocumentor\Reflection\DocBlock\Tags\Var_ $var */
       foreach ($template_vars as $var) {
         if ($var->getType() instanceof String_) {
           $string_vars[] = $var->getVariableName();
