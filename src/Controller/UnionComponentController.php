@@ -75,6 +75,11 @@ class UnionComponentController extends ControllerBase {
         '#todos' => $component->getTodos(),
         '#deprecations' => $component->getDeprecations(),
         '#css_category' => $component->getCssCategory(),
+        '#attached' => [
+          'library' => [
+            'union_organizer/union_organizer_colorschemes'
+          ]
+        ],
       ];
 
       foreach ($component->getDemoData() as $demo_num => $demo_data_item) {
@@ -105,6 +110,8 @@ class UnionComponentController extends ControllerBase {
             'style' => 'display: inline-block; width: 100%; margin: 2em 0; background: #ccc; background: repeating-conic-gradient(#ccc 0% 25%, transparent 0% 50%) 50% / 10px 10px;',
           ],
         ];
+
+        $demo_data_item['attributes']['data-component'] = $component->id();
 
         $build['demo'][$demo_num]['item'][] = [
           '#type' => 'inline_template',

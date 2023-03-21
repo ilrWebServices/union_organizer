@@ -1,0 +1,7 @@
+union_organizer_colorschemes:
+  version: 1.x
+  css:
+    theme:
+      css/uo_colorschemes.css: {}
+  js:
+    js/uo_colorschemes.js: {}
