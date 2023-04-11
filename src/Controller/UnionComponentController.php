@@ -104,20 +104,29 @@ class UnionComponentController extends ControllerBase {
           ];
         }
 
+        $container_style = 'display: inline-block; width: 100%; margin: 2em 0; background: #ccc; background: repeating-conic-gradient(#ccc 0% 25%, transparent 0% 50%) 50% / 10px 10px;';
+        $dupe_count = $demo_data_item['demo_count'] ?? 1;
+
+        if ($dupe_count > 1) {
+          $container_style .= ' display: grid; grid-template-columns: repeat(3, auto); gap: var(--cu-ps1);';
+        }
+
         $build['demo'][$demo_num]['item'] = [
           '#type' => 'container',
           '#attributes' => [
-            'style' => 'display: inline-block; width: 100%; margin: 2em 0; background: #ccc; background: repeating-conic-gradient(#ccc 0% 25%, transparent 0% 50%) 50% / 10px 10px;',
+            'style' => $container_style,
           ],
         ];
 
         $demo_data_item['attributes']['data-component'] = $component->id();
 
-        $build['demo'][$demo_num]['item'][] = [
-          '#type' => 'inline_template',
-          '#template' => $component_source . "{{ attach_library('$library_id') }}",
-          '#context' => $demo_data_item,
-        ];
+        for ($i=0; $i < $dupe_count; $i++) {
+          $build['demo'][$demo_num]['item'][] = [
+            '#type' => 'inline_template',
+            '#template' => $component_source . "{{ attach_library('$library_id') }}",
+            '#context' => $demo_data_item,
+          ];
+        }
       }
     }
     else {
