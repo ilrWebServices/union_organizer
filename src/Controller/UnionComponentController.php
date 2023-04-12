@@ -108,7 +108,11 @@ class UnionComponentController extends ControllerBase {
         $dupe_count = $demo_data_item['demo_count'] ?? 1;
 
         if ($dupe_count > 1) {
-          $container_style .= ' display: grid; grid-template-columns: repeat(3, auto); gap: var(--cu-ps1);';
+          $container_style .= ' display: grid; grid-template-columns: repeat(var(--cu-demo-grid-column-count, 3) , auto); gap: var(--cu-ps1);';
+
+          if (isset($demo_data_item['demo_columns'])) {
+            $container_style .= ' --cu-demo-grid-column-count: ' . (int) $demo_data_item['demo_columns'] . ';';
+          }
         }
 
         $build['demo'][$demo_num]['item'] = [
