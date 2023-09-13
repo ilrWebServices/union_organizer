@@ -45,7 +45,12 @@ class UnionComponentController extends ControllerBase {
    * Callback for /union/components/{component_id}.
    */
   public function componentView($component_id) {
-    $build = [];
+    $build = [
+      '#cache' => [
+        'max-age' => 0,
+      ],
+    ];
+
     $components = new Components();
     $component = $components->getComponent($component_id, TRUE);
 
