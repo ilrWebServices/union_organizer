@@ -3,22 +3,24 @@
 namespace Drupal\union_organizer;
 
 use Drupal\Core\Template\Attribute;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 
 /**
  * Twig extension with some useful functions and filters.
  *
  * Dependency injection is not used for performance reason.
  */
-class UnionTwigExtension extends \Twig_Extension {
+class UnionTwigExtension extends AbstractExtension {
 
   /**
    * {@inheritdoc}
    */
   public function getFunctions() {
     return [
-      new \Twig_SimpleFunction('union_attributes', [$this, 'unionAttributes']),
-      new \Twig_SimpleFunction('union_file', [$this, 'unionFile']),
-      new \Twig_SimpleFunction('union_digest', 'sha1'),
+      new TwigFunction('union_attributes', [$this, 'unionAttributes']),
+      new TwigFunction('union_file', [$this, 'unionFile']),
+      new TwigFunction('union_digest', 'sha1'),
     ];
   }
 
