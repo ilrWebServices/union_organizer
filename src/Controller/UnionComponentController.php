@@ -144,6 +144,10 @@ class UnionComponentController extends ControllerBase {
       ];
     }
 
+    $build['footer'] = [
+      '#markup' => '<p>Powered by Wishful Thinking&trade;</p>',
+    ];
+
     return $build;
   }
 
