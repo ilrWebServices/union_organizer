@@ -35,7 +35,7 @@ class UnionTwigLoader implements LoaderInterface  {
   /**
    * {@inheritdoc}
    */
-  public function getSourceContext($name) {
+  public function getSourceContext(string $name): Source {
     $name = (string) $name;
 
     if (!isset($this->components[$name])) {
@@ -56,7 +56,7 @@ class UnionTwigLoader implements LoaderInterface  {
   /**
    * {@inheritdoc}
    */
-  public function getCacheKey($name) {
+  public function getCacheKey(string $name): string {
     if (!isset($this->components[$name])) {
       throw new LoaderError(sprintf('Template "%s" is not defined.', $name));
     }
@@ -67,7 +67,7 @@ class UnionTwigLoader implements LoaderInterface  {
   /**
    * {@inheritdoc}
    */
-  public function isFresh($name, $time) {
+  public function isFresh(string $name, int $time): bool {
     if (!isset($this->components[$name])) {
       throw new LoaderError(sprintf('Template "%s" is not defined.', $name));
     }
@@ -78,7 +78,7 @@ class UnionTwigLoader implements LoaderInterface  {
   /**
    * {@inheritdoc}
    */
-  public function exists($name) {
+  public function exists(string $name) {
     return isset($this->components[$name]);
   }
 
