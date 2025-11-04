@@ -33,7 +33,7 @@
   };
 
   document.addEventListener('keydown', (event) => {
-    if (event.ctrlKey && event.key === 'c' || event.key === 'ArrowRight') {
+    if (event.ctrlKey && event.key === 'c') {
       cycleColorscheme();
     }
   });
