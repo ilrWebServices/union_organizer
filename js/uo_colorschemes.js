@@ -41,6 +41,7 @@
   document.addEventListener('DOMContentLoaded', (event) => {
     const colorswitcher_el = document.createElement('ul');
     colorswitcher_el.classList.add('uo-colorswitcher');
+    colorswitcher_el.title = 'ctrl+c';
 
     colorschemes.forEach((colorcheme) => {
       if (colorcheme) {
