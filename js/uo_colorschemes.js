@@ -56,11 +56,16 @@
     colorswitcher_el.addEventListener('click', (event) => {
       let target = event.target;
 
+      colorswitcher_el.querySelectorAll('.uo-colorswitcher--scheme').forEach(el => {
+        el.classList.remove('active');
+      });
+
       if (target.dataset.colorscheme === currentColorscheme) {
         setColorScheme('');
       }
       else {
         setColorScheme(target.dataset.colorscheme);
+        target.classList.add('active');
       }
     });
 

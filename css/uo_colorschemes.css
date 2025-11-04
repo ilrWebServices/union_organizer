@@ -16,3 +16,8 @@
 .uo-colorswitcher--scheme {
   padding: .5em 1em;
 }
+
+.uo-colorswitcher--scheme.active {
+  text-shadow: 0px 0px 5px black;
+  color: white;
+}
