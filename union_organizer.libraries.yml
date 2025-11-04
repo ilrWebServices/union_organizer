@@ -5,3 +5,11 @@ union_organizer_colorschemes:
       css/uo_colorschemes.css: {}
   js:
     js/uo_colorschemes.js: {}
+
+union_organizer_layoutschemes:
+  version: 1.x
+  css:
+    theme:
+      css/uo_layoutschemes.css: {}
+  js:
+    js/uo_layoutschemes.js: {}

@@ -1,0 +1,23 @@
+.uo-layoutscehemeswitcher {
+  position: fixed;
+  bottom: 62px;
+  right: 10px;
+  display: flex;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  cursor: pointer;
+  background-color: rgba(200, 200, 200, .75);
+  border-radius: 5px;
+  backdrop-filter: blur(2px);
+  z-index: 100;
+}
+
+.uo-layoutscehemeswitcher--scheme {
+  padding: .5em 1em;
+}
+
+.uo-layoutscehemeswitcher--scheme.active {
+  text-shadow: 0px 0px 5px black;
+  color: white;
+}

@@ -82,7 +82,8 @@ class UnionComponentController extends ControllerBase {
         '#css_category' => $component->getCssCategory(),
         '#attached' => [
           'library' => [
-            'union_organizer/union_organizer_colorschemes'
+            'union_organizer/union_organizer_colorschemes',
+            'union_organizer/union_organizer_layoutschemes'
           ]
         ],
       ];
