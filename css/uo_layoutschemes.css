@@ -21,3 +21,32 @@
   text-shadow: 0px 0px 5px black;
   color: white;
 }
+
+
+
+/* tmp */
+.layout-container {
+  --layout-grid-column-width: 84px;
+  --layout-grid-gutter-width: 32px;
+  --layout-grid-column-width: 4.2rem;
+  --layout-grid-gutter-width: 1.6rem;
+  --layout-grid-column-width: 6.176470588%;
+  --layout-grid-gutter-width: 2.352941176%;
+}
+
+.layout-container::before {
+  content: '';
+  display: block;
+  position: absolute;
+  inset: 0 0 0 0;
+  opacity: .125;
+  z-index: 100;
+  pointer-events: none;
+  background-image: repeating-linear-gradient(
+    to right, /* Direction of the gradient */
+    var(--cu-color-brand) 0px, /* Start of the first "column" color */
+    var(--cu-color-brand) var(--layout-grid-column-width), /* End of the first "column" color */
+    white var(--layout-grid-column-width), /* Start of the second "column" color (immediately after the first) */
+    white calc(var(--layout-grid-column-width) + var(--layout-grid-gutter-width)) /* End of the second "column" color */
+  );
+}
