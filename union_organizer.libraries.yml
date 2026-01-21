@@ -2,6 +2,7 @@ union_organizer_frontend_assets:
   version: 1.x
   css:
     theme:
+      css/uo_styles.css: {}
       css/uo_colorschemes.css: {}
       css/uo_layoutschemes.css: {}
   js:
