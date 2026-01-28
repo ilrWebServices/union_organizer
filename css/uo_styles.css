@@ -1,3 +1,32 @@
 .component-info--template-vars {
   word-break: break-all;
 }
+
+.component-demo-wrapper {
+  padding-top: 1em;
+  margin: 2em 0;
+  border-top: 2px solid #b31b1b;
+}
+
+.component-demo {
+  display: inline-block;
+  width: 100%;
+  margin: 2em 0;
+  background: #ccc;
+  background: repeating-conic-gradient(#ccc 0% 25%, transparent 0% 50%) 50% / 10px 10px;
+}
+
+.component-demo--grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--cu-vr1);
+}
+
+@media screen and (min-width: 61rem) {
+  .component-demo--grid {
+    display: grid;
+    grid-template-columns: repeat(var(--cu-demo-grid-column-count, 3), auto);
+    gap: var(--cu-ps1);
+  }
+}
+

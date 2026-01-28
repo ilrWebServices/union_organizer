@@ -99,7 +99,7 @@ class UnionComponentController extends ControllerBase {
         $build['demo'][$demo_num] = [
           '#type' => 'container',
           '#attributes' => [
-            'style' => 'padding-top: 1em; margin: 2em 0; border-top: 2px solid #b31b1b;',
+            'class' => ['component-demo-wrapper'],
           ],
         ];
 
@@ -109,23 +109,20 @@ class UnionComponentController extends ControllerBase {
           ];
         }
 
-        $container_style = 'display: inline-block; width: 100%; margin: 2em 0; background: #ccc; background: repeating-conic-gradient(#ccc 0% 25%, transparent 0% 50%) 50% / 10px 10px;';
-        $dupe_count = $demo_data_item['demo_count'] ?? 1;
-
-        if ($dupe_count > 1) {
-          $container_style .= ' display: grid; grid-template-columns: repeat(var(--cu-demo-grid-column-count, 3) , auto); gap: var(--cu-ps1);';
-
-          if (isset($demo_data_item['demo_columns'])) {
-            $container_style .= ' --cu-demo-grid-column-count: ' . (int) $demo_data_item['demo_columns'] . ';';
-          }
-        }
-
         $build['demo'][$demo_num]['item'] = [
           '#type' => 'container',
           '#attributes' => [
-            'style' => $container_style,
+            'class' => ['component-demo'],
           ],
         ];
+
+        // TODO: Instead of duping the cards in a grid, why not just put a max width on one?
+        $dupe_count = $demo_data_item['demo_count'] ?? 1;
+
+        if ($dupe_count > 1) {
+          $build['demo'][$demo_num]['item']['#attributes']['class'][] = 'component-demo--grid';
+          $build['demo'][$demo_num]['item']['#attributes']['style'] = '--cu-demo-grid-column-count: ' . (int) $demo_data_item['demo_columns'] . ';';
+        }
 
         $demo_data_item['attributes']['data-component'] = $component->id();
 
