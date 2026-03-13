@@ -1,5 +1,5 @@
 name: 'Union Organizer'
 type: module
 description: 'A simple integration module for the Union component system'
-core_version_requirement: ^9.4 || ^10
+core_version_requirement: ^10 || ^11
 package: 'Union'
